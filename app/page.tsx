@@ -196,17 +196,18 @@ export default function HomePage() {
   const progress = ((currentStep + 1) / steps.length) * 100
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-blue-50 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
       </div>
 
       {/* Progress bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
         <motion.div 
-          className="h-full bg-gradient-to-r from-primary-500 to-accent-500"
+          className="h-full bg-gradient-to-r from-primary-500 to-orange-500"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5 }}
@@ -246,7 +247,7 @@ export default function HomePage() {
                   onClick={nextStep}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                  className="btn-primary"
                 >
                   <span>Let&apos;s get started</span>
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -279,8 +280,8 @@ export default function HomePage() {
                       whileTap={{ scale: 0.98 }}
                       className={`p-6 rounded-2xl border-2 transition-all font-medium text-lg ${
                         selectedOptions.scale === option
-                          ? 'border-primary-500 bg-primary-50 text-primary-700'
-                          : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700'
+                          ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-glow'
+                          : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
                       }`}
                     >
                       {option}
@@ -318,8 +319,8 @@ export default function HomePage() {
                       whileTap={{ scale: 0.98 }}
                       className={`p-6 rounded-2xl border-2 transition-all font-medium text-lg ${
                         selectedOptions.remote === option
-                          ? 'border-primary-500 bg-primary-50 text-primary-700'
-                          : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700'
+                          ? 'border-accent-500 bg-gradient-to-r from-accent-50 to-blue-50 text-accent-700 shadow-blue-glow'
+                          : 'border-gray-200 bg-white hover:border-accent-300 text-gray-700 hover:shadow-lg'
                       }`}
                     >
                       {option}
@@ -404,7 +405,7 @@ export default function HomePage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     onClick={nextStep}
-                    className="mt-8 inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                    className="mt-8 btn-primary"
                   >
                     <span>Continue</span>
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -434,7 +435,7 @@ export default function HomePage() {
                     {...register('contact_info')}
                     type="text"
                     placeholder="your@email.com or +91 12345 67890"
-                    className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-0 outline-none transition-all text-lg"
+                    className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all text-lg bg-white shadow-sm hover:shadow-md"
                   />
                   {errors.contact_info && (
                     <p className="text-red-500 text-sm mt-2">{errors.contact_info.message}</p>
@@ -445,7 +446,7 @@ export default function HomePage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       onClick={nextStep}
-                      className="mt-6 inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all"
+                      className="mt-6 btn-secondary"
                     >
                       <span>Continue</span>
                       <ArrowRight className="ml-2 w-5 h-5" />
@@ -476,14 +477,14 @@ export default function HomePage() {
                     {...register('company_name')}
                     type="text"
                     placeholder="Your awesome company"
-                    className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-0 outline-none transition-all text-lg"
+                    className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all text-lg bg-white shadow-sm hover:shadow-md"
                   />
 
                   <div className="flex gap-4 mt-8">
                     <button
                       onClick={() => handleSubmit(onSubmit)()}
                       disabled={isSubmitting}
-                      className="flex-1 inline-flex items-center justify-center px-8 py-4 bg-gray-200 text-gray-700 font-semibold rounded-2xl hover:bg-gray-300 transition-all"
+                      className="flex-1 inline-flex items-center justify-center px-8 py-4 bg-gray-200 text-gray-700 font-semibold rounded-2xl hover:bg-gray-300 transition-all border-2 border-gray-200 hover:border-gray-300"
                     >
                       Skip
                     </button>
@@ -491,7 +492,7 @@ export default function HomePage() {
                     <button
                       onClick={() => handleSubmit(onSubmit)()}
                       disabled={isSubmitting}
-                      className="flex-1 inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50"
+                      className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
                         <>
@@ -526,26 +527,26 @@ export default function HomePage() {
                   🎉
                 </motion.div>
                 
-                <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                <h2 className="text-4xl font-bold text-gradient mb-4">
                   Thank you!
                 </h2>
                 <p className="text-xl text-gray-600 mb-8 leading-relaxed">
                   We&apos;ve received your request and will get back to you soon with amazing candidates that match your needs.
                 </p>
 
-                <div className="bg-white p-6 rounded-2xl shadow-lg max-w-md mx-auto mb-8">
+                <div className="card p-6 max-w-md mx-auto mb-8">
                   <h3 className="font-semibold text-gray-800 mb-3">What happens next?</h3>
                   <div className="text-left space-y-2 text-gray-600">
                     <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                      <CheckCircle className="w-4 h-4 text-primary-500 mr-2" />
                       <span>We&apos;ll review your requirements</span>
                     </div>
                     <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                      <CheckCircle className="w-4 h-4 text-accent-500 mr-2" />
                       <span>Match you with top candidates</span>
                     </div>
                     <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                      <CheckCircle className="w-4 h-4 text-orange-500 mr-2" />
                       <span>Contact you within 24 hours</span>
                     </div>
                   </div>
@@ -557,7 +558,7 @@ export default function HomePage() {
                     setIsComplete(false)
                     setSelectedOptions({})
                   }}
-                  className="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-300 transition-all"
+                  className="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-300 transition-all border border-gray-300 hover:border-gray-400"
                 >
                   Submit Another Request
                 </button>

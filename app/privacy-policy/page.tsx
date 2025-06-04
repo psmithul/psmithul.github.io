@@ -113,7 +113,7 @@ const sections = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-blue-50">
       {/* Header */}
       <motion.header
         initial={{ y: -20, opacity: 0 }}
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
           <div className="flex items-center justify-between">
             <Link 
               href="/"
-              className="inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors"
+              className="inline-flex items-center text-primary-600 hover:text-primary-700 transition-colors font-medium"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Form
@@ -149,16 +149,16 @@ export default function PrivacyPolicyPage() {
           transition={{ delay: 0.1 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-primary-100 to-orange-100 rounded-full mb-6 shadow-glow">
             <Shield className="w-8 h-8 text-primary-600" />
           </div>
           
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gradient mb-4">
             Privacy Policy
           </h1>
           
           <div className="flex items-center justify-center text-gray-600 mb-6">
-            <Calendar className="w-4 h-4 mr-2" />
+            <Calendar className="w-4 h-4 mr-2 text-accent-500" />
             <span>Last updated: May 16, 2025</span>
           </div>
           
@@ -179,11 +179,17 @@ export default function PrivacyPolicyPage() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1 + (index * 0.1) }}
-                className="bg-white rounded-2xl p-8 shadow-card"
+                className="card p-8"
               >
                 <div className="flex items-center mb-6">
-                  <div className="flex items-center justify-center w-12 h-12 bg-primary-100 rounded-xl mr-4">
-                    <Icon className="w-6 h-6 text-primary-600" />
+                  <div className={`flex items-center justify-center w-12 h-12 rounded-xl mr-4 ${
+                    index % 2 === 0 
+                      ? 'bg-gradient-to-r from-primary-100 to-orange-100' 
+                      : 'bg-gradient-to-r from-accent-100 to-blue-100'
+                  }`}>
+                    <Icon className={`w-6 h-6 ${
+                      index % 2 === 0 ? 'text-primary-600' : 'text-accent-600'
+                    }`} />
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900">
                     {section.title}
@@ -213,10 +219,10 @@ export default function PrivacyPolicyPage() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1 + (sections.length * 0.1) }}
-            className="bg-white rounded-2xl p-8 shadow-card"
+            className="card p-8"
           >
             <div className="flex items-center mb-6">
-              <div className="flex items-center justify-center w-12 h-12 bg-accent-100 rounded-xl mr-4">
+              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-accent-100 to-blue-100 rounded-xl mr-4">
                 <Users className="w-6 h-6 text-accent-600" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -225,25 +231,25 @@ export default function PrivacyPolicyPage() {
             </div>
             
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="text-center p-4 bg-gradient-to-br from-primary-50 to-orange-50 rounded-xl border border-primary-100">
+                <div className="w-10 h-10 bg-gradient-to-r from-primary-100 to-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
                   <Eye className="w-5 h-5 text-primary-600" />
                 </div>
                 <h3 className="font-semibold text-gray-800 mb-2">Access & Update</h3>
                 <p className="text-sm text-gray-600">View and edit your profile anytime in account settings.</p>
               </div>
               
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Mail className="w-5 h-5 text-primary-600" />
+              <div className="text-center p-4 bg-gradient-to-br from-accent-50 to-blue-50 rounded-xl border border-accent-100">
+                <div className="w-10 h-10 bg-gradient-to-r from-accent-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Mail className="w-5 h-5 text-accent-600" />
                 </div>
                 <h3 className="font-semibold text-gray-800 mb-2">Opt-out</h3>
                 <p className="text-sm text-gray-600">Unsubscribe from marketing emails or SMS anytime.</p>
               </div>
               
-              <div className="text-center p-4 bg-gray-50 rounded-xl">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <FileText className="w-5 h-5 text-primary-600" />
+              <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl border border-orange-100">
+                <div className="w-10 h-10 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <FileText className="w-5 h-5 text-orange-600" />
                 </div>
                 <h3 className="font-semibold text-gray-800 mb-2">Data Deletion</h3>
                 <p className="text-sm text-gray-600">Request complete data erasure by contacting us.</p>
@@ -256,7 +262,7 @@ export default function PrivacyPolicyPage() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.1 + ((sections.length + 1) * 0.1) }}
-            className="bg-white rounded-2xl p-8 shadow-card"
+            className="card p-8"
           >
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Additional Information</h2>
             
@@ -285,10 +291,10 @@ export default function PrivacyPolicyPage() {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1 + ((sections.length + 2) * 0.1) }}
-          className="mt-12 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl p-8 text-center text-white"
+          className="mt-12 bg-gradient-to-r from-primary-500 via-orange-500 to-accent-500 rounded-2xl p-8 text-center text-white shadow-xl"
         >
           <h2 className="text-2xl font-bold mb-4">Questions About Our Privacy Policy?</h2>
-          <p className="text-primary-100 mb-6 max-w-2xl mx-auto">
+          <p className="text-white/90 mb-6 max-w-2xl mx-auto">
             If you have any questions about this privacy policy or how we handle your data, 
             we&apos;re here to help. Reach out to us anytime.
           </p>
@@ -296,7 +302,7 @@ export default function PrivacyPolicyPage() {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
             <a
               href="mailto:privacy@thinkifylabs.com"
-              className="inline-flex items-center px-6 py-3 bg-white text-primary-600 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-white text-primary-600 font-medium rounded-xl hover:bg-gray-50 transition-all transform hover:scale-105 shadow-lg"
             >
               <Mail className="w-4 h-4 mr-2" />
               privacy@thinkifylabs.com
@@ -304,7 +310,7 @@ export default function PrivacyPolicyPage() {
             
             <a
               href="tel:+91XXXXXXXXXX"
-              className="inline-flex items-center px-6 py-3 bg-white/10 text-white font-medium rounded-xl hover:bg-white/20 transition-colors"
+              className="inline-flex items-center px-6 py-3 bg-white/10 text-white font-medium rounded-xl hover:bg-white/20 transition-all backdrop-blur-sm"
             >
               <Phone className="w-4 h-4 mr-2" />
               +91 XXXXXXXXXX
@@ -321,7 +327,7 @@ export default function PrivacyPolicyPage() {
         >
           <Link
             href="/"
-            className="inline-flex items-center px-8 py-3 bg-primary-500 text-white font-medium rounded-xl hover:bg-primary-600 transition-colors"
+            className="btn-primary"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Form
