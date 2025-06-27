@@ -6,10 +6,10 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { scale, remote, roles, contact_info, company_name } = body
+    const { scale, remote, roles, email, phone, company_name } = body
 
     // Validate required fields
-    if (!scale || !remote || !roles || !contact_info) {
+    if (!scale || !remote || !roles || !email || !phone || !company_name) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -19,14 +19,15 @@ export async function POST(request: NextRequest) {
     // Format the email content
     const emailData = {
       to: 'psmithul@gmail.com',
-      subject: `🚀 New Hiring Request ${company_name ? `from ${company_name}` : ''} - Thinkify Labs`,
+      subject: `🚀 New Hiring Request from ${company_name} - Thinkify Labs`,
       timestamp: new Date().toISOString(),
       data: {
         company_name,
         scale,
         remote,
         roles,
-        contact_info
+        email,
+        phone
       }
     }
 
@@ -208,12 +209,13 @@ export async function POST(request: NextRequest) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            email: contact_info,
-            company: company_name || 'Not provided',
+            email: email,
+            phone: phone,
+            company: company_name,
             scale: scale,
             remote: remote,
             roles: roles.join(', '),
-            message: `Scaling: ${scale}\nRemote: ${remote}\nRoles: ${roles.join(', ')}\nContact: ${contact_info}${company_name ? `\nCompany: ${company_name}` : ''}`
+            message: `Company: ${company_name}\nScaling: ${scale}\nRemote: ${remote}\nRoles: ${roles.join(', ')}\nEmail: ${email}\nPhone: ${phone}`
           }),
         })
 
@@ -290,7 +292,7 @@ export async function POST(request: NextRequest) {
 }
 
 function generateEmailHTML(data: any) {
-  const { company_name, scale, remote, roles, contact_info } = data
+  const { company_name, scale, remote, roles, email, phone } = data
   
   return `
     <div style="font-family: 'Roboto', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
@@ -326,9 +328,14 @@ function generateEmailHTML(data: any) {
           </div>
         </div>
         
-        <div style="margin-bottom: 0; padding: 20px; background: #ecfdf5; border-radius: 10px; border-left: 4px solid #10b981;">
-          <h3 style="margin: 0 0 8px 0; color: #1f2937; font-size: 18px;">📞 Contact Information</h3>
-          <p style="margin: 0; font-size: 16px; color: #374151; font-weight: 500;">${contact_info}</p>
+        <div style="margin-bottom: 25px; padding: 20px; background: #ecfdf5; border-radius: 10px; border-left: 4px solid #10b981;">
+          <h3 style="margin: 0 0 12px 0; color: #1f2937; font-size: 18px;">📧 Email</h3>
+          <p style="margin: 0; font-size: 16px; color: #374151; font-weight: 500;">${email}</p>
+        </div>
+        
+        <div style="margin-bottom: 0; padding: 20px; background: #eff6ff; border-radius: 10px; border-left: 4px solid #3b82f6;">
+          <h3 style="margin: 0 0 8px 0; color: #1f2937; font-size: 18px;">📞 Phone</h3>
+          <p style="margin: 0; font-size: 16px; color: #374151; font-weight: 500;">${phone}</p>
         </div>
       </div>
       
@@ -349,16 +356,17 @@ function generateEmailHTML(data: any) {
 }
 
 function generateEmailText(data: any) {
-  const { company_name, scale, remote, roles, contact_info } = data
+  const { company_name, scale, remote, roles, email, phone } = data
   
   return `
 🚀 NEW HIRING REQUEST - THINKIFY LABS
 
-${company_name ? `🏢 Company: ${company_name}\n` : ''}
+🏢 Company: ${company_name}
 📈 Scaling Plans: ${scale}
 🌍 Remote Work: ${remote}
 👥 Roles Needed: ${roles.join(', ')}
-📞 Contact: ${contact_info}
+📧 Email: ${email}
+📞 Phone: ${phone}
 
 🕐 Received at ${new Date().toLocaleString('en-US', { 
   timeZone: 'America/New_York',

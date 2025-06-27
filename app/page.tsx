@@ -29,8 +29,13 @@ const formSchema = z.object({
   scale: z.string().min(1, 'Please select an option'),
   remote: z.string().min(1, 'Please select an option'),
   roles: z.array(z.string()).min(1, 'Please select at least one role'),
-  contact_info: z.string().min(1, 'Contact information is required'),
-  company_name: z.string().optional(),
+  email: z.string()
+    .min(1, 'Email is required')
+    .email('Please enter a valid email address'),
+  phone: z.string()
+    .min(1, 'Phone number is required')
+    .regex(/^[\+]?[1-9][\d]{0,15}$/, 'Please enter a valid phone number'),
+  company_name: z.string().min(1, 'Company name is required'),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -70,15 +75,21 @@ const steps = [
     emoji: '👥'
   },
   {
-    id: 'contact',
-    title: 'How should we reach you?',
+    id: 'email',
+    title: 'What&apos;s your email address?',
     subtitle: 'We&apos;ll send you perfect matches and updates',
+    emoji: '📧'
+  },
+  {
+    id: 'phone',
+    title: 'What&apos;s your phone number?',
+    subtitle: 'For quick updates and follow-ups',
     emoji: '📞'
   },
   {
     id: 'company',
     title: 'What&apos;s your company name?',
-    subtitle: 'Optional - helps us personalize our service',
+    subtitle: 'Required - helps us personalize our service',
     emoji: '🏢'
   },
   {
@@ -123,8 +134,12 @@ export default function HomePage() {
       isValid = await trigger('remote')
     } else if (stepKey === 'roles') {
       isValid = await trigger('roles')
-    } else if (stepKey === 'contact') {
-      isValid = await trigger('contact_info')
+    } else if (stepKey === 'email') {
+      isValid = await trigger('email')
+    } else if (stepKey === 'phone') {
+      isValid = await trigger('phone')
+    } else if (stepKey === 'company') {
+      isValid = await trigger('company_name')
     }
 
     if (isValid && currentStep < steps.length - 1) {
@@ -171,8 +186,9 @@ export default function HomePage() {
           scale: data.scale,
           remote: data.remote,
           roles: data.roles,
-          contact_info: data.contact_info,
-          company_name: data.company_name || '',
+          email: data.email,
+          phone: data.phone,
+          company_name: data.company_name,
         }),
       })
 
@@ -416,15 +432,15 @@ export default function HomePage() {
 
             {currentStep === 4 && (
               <motion.div
-                key="contact"
+                key="email"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 className="text-center"
               >
-                <div className="text-6xl mb-6">📞</div>
+                <div className="text-6xl mb-6">📧</div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  How should we reach you?
+                  What&apos;s your email address?
                 </h2>
                 <p className="text-gray-600 mb-12 text-lg">
                   We&apos;ll send you perfect matches and updates
@@ -432,16 +448,16 @@ export default function HomePage() {
 
                 <div className="max-w-md mx-auto">
                   <input
-                    {...register('contact_info')}
-                    type="text"
-                    placeholder="your@email.com or +91 12345 67890"
+                    {...register('email')}
+                    type="email"
+                    placeholder="your@company.com"
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all text-lg bg-white shadow-sm hover:shadow-md"
                   />
-                  {errors.contact_info && (
-                    <p className="text-red-500 text-sm mt-2">{errors.contact_info.message}</p>
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
                   )}
 
-                  {watchedValues.contact_info && (
+                  {watchedValues.email && (
                     <motion.button
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -458,6 +474,48 @@ export default function HomePage() {
 
             {currentStep === 5 && (
               <motion.div
+                key="phone"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="text-center"
+              >
+                <div className="text-6xl mb-6">📞</div>
+                <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                  What&apos;s your phone number?
+                </h2>
+                <p className="text-gray-600 mb-12 text-lg">
+                  For quick updates and follow-ups
+                </p>
+
+                <div className="max-w-md mx-auto">
+                  <input
+                    {...register('phone')}
+                    type="tel"
+                    placeholder="+1 234 567 8900"
+                    className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all text-lg bg-white shadow-sm hover:shadow-md"
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm mt-2">{errors.phone.message}</p>
+                  )}
+
+                  {watchedValues.phone && (
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      onClick={nextStep}
+                      className="mt-6 btn-secondary"
+                    >
+                      <span>Continue</span>
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </motion.button>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {currentStep === 6 && (
+              <motion.div
                 key="company"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -469,7 +527,7 @@ export default function HomePage() {
                   What&apos;s your company name?
                 </h2>
                 <p className="text-gray-600 mb-12 text-lg">
-                  Optional - helps us personalize our service
+                  Required - helps us personalize our service
                 </p>
 
                 <div className="max-w-md mx-auto">
@@ -479,20 +537,17 @@ export default function HomePage() {
                     placeholder="Your awesome company"
                     className="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:border-primary-500 focus:ring-2 focus:ring-primary-200 outline-none transition-all text-lg bg-white shadow-sm hover:shadow-md"
                   />
+                  {errors.company_name && (
+                    <p className="text-red-500 text-sm mt-2">{errors.company_name.message}</p>
+                  )}
 
-                  <div className="flex gap-4 mt-8">
-                    <button
+                  {watchedValues.company_name && (
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       onClick={() => handleSubmit(onSubmit)()}
                       disabled={isSubmitting}
-                      className="flex-1 inline-flex items-center justify-center px-8 py-4 bg-gray-200 text-gray-700 font-semibold rounded-2xl hover:bg-gray-300 transition-all border-2 border-gray-200 hover:border-gray-300"
-                    >
-                      Skip
-                    </button>
-                    
-                    <button
-                      onClick={() => handleSubmit(onSubmit)()}
-                      disabled={isSubmitting}
-                      className="flex-1 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="mt-6 btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
                         <>
@@ -505,13 +560,13 @@ export default function HomePage() {
                           <Sparkles className="ml-2 w-5 h-5" />
                         </>
                       )}
-                    </button>
-                  </div>
+                    </motion.button>
+                  )}
                 </div>
               </motion.div>
             )}
 
-            {currentStep === 6 && (
+            {currentStep === 7 && (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.8 }}
