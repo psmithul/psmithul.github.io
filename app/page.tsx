@@ -34,7 +34,7 @@ const formSchema = z.object({
     .email('Please enter a valid email address'),
   phone: z.string()
     .min(1, 'Phone number is required')
-    .regex(/^[\+]?[1-9][\d]{0,15}$/, 'Please enter a valid phone number'),
+    .regex(/^[\+]?[\d\s\-\(\)]{7,20}$/, 'Please enter a valid phone number'),
   company_name: z.string().min(1, 'Company name is required'),
 })
 
@@ -137,6 +137,8 @@ export default function HomePage() {
     // Validate current step
     if (stepKey === 'user-type') {
       isValid = userType !== null
+    } else if (stepKey === 'welcome') {
+      isValid = true // Welcome step doesn't need validation
     } else if (stepKey === 'scale') {
       isValid = await trigger('scale')
     } else if (stepKey === 'remote') {
@@ -700,6 +702,7 @@ export default function HomePage() {
                     setCurrentStep(0)
                     setIsComplete(false)
                     setSelectedOptions({})
+                    setUserType(null)
                   }}
                   className="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-300 transition-all border border-gray-300 hover:border-gray-400"
                 >
