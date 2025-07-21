@@ -51,6 +51,12 @@ const roles = [
 
 const steps = [
   {
+    id: 'user-type',
+    title: 'Welcome to Thinkify Labs! 👋',
+    subtitle: 'Are you looking to hire or looking for opportunities?',
+    emoji: '🚀'
+  },
+  {
     id: 'welcome',
     title: 'Welcome to Thinkify Labs! 👋',
     subtitle: 'Let&apos;s find the perfect tech talent for your team',
@@ -102,6 +108,7 @@ const steps = [
 
 export default function HomePage() {
   const [currentStep, setCurrentStep] = useState(0)
+  const [userType, setUserType] = useState<'company' | 'developer' | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<Record<string, any>>({})
@@ -128,7 +135,9 @@ export default function HomePage() {
     let isValid = true
 
     // Validate current step
-    if (stepKey === 'scale') {
+    if (stepKey === 'user-type') {
+      isValid = userType !== null
+    } else if (stepKey === 'scale') {
       isValid = await trigger('scale')
     } else if (stepKey === 'remote') {
       isValid = await trigger('remote')
@@ -159,6 +168,17 @@ export default function HomePage() {
     
     // Auto-advance for single-select fields
     if (field === 'scale' || field === 'remote') {
+      setTimeout(() => nextStep(), 500)
+    }
+  }
+
+  const handleUserTypeSelect = (type: 'company' | 'developer') => {
+    setUserType(type)
+    if (type === 'developer') {
+      // Redirect to developer form
+      window.location.href = '/developer'
+    } else {
+      // Continue with company form
       setTimeout(() => nextStep(), 500)
     }
   }
@@ -236,7 +256,7 @@ export default function HomePage() {
           <AnimatePresence mode="wait">
             {currentStep === 0 && (
               <motion.div
-                key="welcome"
+                key="user-type"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -255,8 +275,76 @@ export default function HomePage() {
                   Thinkify Labs
                 </h1>
                 <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-                  Let&apos;s find the perfect tech talent for your team.<br />
-                  This will only take 2 minutes.
+                  Are you looking to hire or looking for opportunities?
+                </p>
+
+                <div className="grid gap-6 max-w-2xl mx-auto">
+                  <motion.button
+                    onClick={() => handleUserTypeSelect('company')}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl ${
+                      userType === 'company'
+                        ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-glow'
+                        : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="text-4xl">🏢</div>
+                      <div className="text-left">
+                        <div className="font-bold">I&apos;m a Company</div>
+                        <div className="text-sm text-gray-500 font-normal">Looking to hire tech talent</div>
+                      </div>
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    onClick={() => handleUserTypeSelect('developer')}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl ${
+                      userType === 'developer'
+                        ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-glow'
+                        : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-4">
+                      <div className="text-4xl">👨‍💻</div>
+                      <div className="text-left">
+                        <div className="font-bold">I&apos;m a Developer</div>
+                        <div className="text-sm text-gray-500 font-normal">Looking for opportunities</div>
+                      </div>
+                    </div>
+                  </motion.button>
+                </div>
+              </motion.div>
+            )}
+
+            {currentStep === 1 && (
+              <motion.div
+                key="welcome"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="text-center"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring" }}
+                  className="text-8xl mb-8"
+                >
+                  {userType === 'company' ? '🏢' : '👨‍💻'}
+                </motion.div>
+                
+                <h1 className="text-5xl font-bold text-gradient mb-4">
+                  {userType === 'company' ? 'Hiring Form' : 'Developer Profile'}
+                </h1>
+                <p className="text-xl text-gray-600 mb-12 leading-relaxed">
+                  {userType === 'company' 
+                    ? "Let&apos;s find the perfect tech talent for your team. This will only take 2 minutes."
+                    : "Let&apos;s find you amazing opportunities. This will only take 2 minutes."
+                  }
                 </p>
 
                 <motion.button
@@ -265,13 +353,13 @@ export default function HomePage() {
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary"
                 >
-                  <span>Let&apos;s get started</span>
+                                      <span>Let&apos;s get started</span>
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </motion.button>
               </motion.div>
             )}
 
-            {currentStep === 1 && (
+            {currentStep === 3 && (
               <motion.div
                 key="scale"
                 initial={{ opacity: 0, x: 20 }}
@@ -310,7 +398,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 2 && (
+            {currentStep === 4 && (
               <motion.div
                 key="remote"
                 initial={{ opacity: 0, x: 20 }}
@@ -349,7 +437,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 3 && (
+            {currentStep === 5 && (
               <motion.div
                 key="roles"
                 initial={{ opacity: 0, x: 20 }}
@@ -430,7 +518,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 4 && (
+            {currentStep === 6 && (
               <motion.div
                 key="email"
                 initial={{ opacity: 0, x: 20 }}
@@ -472,7 +560,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 7 && (
               <motion.div
                 key="phone"
                 initial={{ opacity: 0, x: 20 }}
@@ -514,7 +602,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 6 && (
+            {currentStep === 8 && (
               <motion.div
                 key="company"
                 initial={{ opacity: 0, x: 20 }}
@@ -566,7 +654,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 7 && (
+            {currentStep === 9 && (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.8 }}
