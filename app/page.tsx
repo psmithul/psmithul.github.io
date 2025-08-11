@@ -59,7 +59,7 @@ const steps = [
   {
     id: 'welcome',
     title: 'Welcome to Thinkify Labs! 👋',
-    subtitle: 'Let&apos;s find the perfect tech talent for your team',
+    subtitle: "Let&apos;s find the perfect tech talent for your team",
     emoji: '🚀'
   },
   {
@@ -82,26 +82,26 @@ const steps = [
   },
   {
     id: 'email',
-    title: 'What&apos;s your email address?',
-    subtitle: 'We&apos;ll send you perfect matches and updates',
+    title: "What&apos;s your email address?",
+    subtitle: "We&apos;ll send you perfect matches and updates",
     emoji: '📧'
   },
   {
     id: 'phone',
-    title: 'What&apos;s your phone number?',
+    title: "What&apos;s your phone number?",
     subtitle: 'For quick updates and follow-ups',
     emoji: '📞'
   },
   {
     id: 'company',
-    title: 'What&apos;s your company name?',
+    title: "What&apos;s your company name?",
     subtitle: 'Required - helps us personalize our service',
     emoji: '🏢'
   },
   {
     id: 'success',
     title: 'Thank you! 🎉',
-    subtitle: 'We&apos;ll get back to you with amazing candidates',
+    subtitle: "We&apos;ll get back to you with amazing candidates",
     emoji: '✨'
   }
 ]
