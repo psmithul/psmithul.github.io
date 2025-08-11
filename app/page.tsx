@@ -180,8 +180,8 @@ export default function HomePage() {
       // Redirect to developer form
       window.location.href = '/developer'
     } else {
-      // Continue with company form - remove delay for immediate response
-      nextStep()
+      // For company, immediately advance to next step
+      setCurrentStep(1)
     }
   }
 
@@ -285,13 +285,10 @@ export default function HomePage() {
                     onClick={() => handleUserTypeSelect('company')}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    disabled={userType !== null}
-                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl relative overflow-hidden ${
+                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl relative overflow-hidden cursor-pointer ${
                       userType === 'company'
                         ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-lg shadow-primary-200'
-                        : userType === null
-                        ? 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg cursor-pointer'
-                        : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
+                        : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
                     }`}
                   >
                     <div className="flex items-center gap-6 w-full">
@@ -318,13 +315,10 @@ export default function HomePage() {
                     onClick={() => handleUserTypeSelect('developer')}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    disabled={userType !== null}
-                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl relative overflow-hidden ${
+                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl relative overflow-hidden cursor-pointer ${
                       userType === 'developer'
                         ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-lg shadow-primary-200'
-                        : userType === null
-                        ? 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg cursor-pointer'
-                        : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
+                        : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
                     }`}
                   >
                     <div className="flex items-center gap-6 w-full">
