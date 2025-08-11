@@ -3,6 +3,12 @@ import nodemailer from 'nodemailer'
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
+// Email recipients
+const EMAIL_RECIPIENTS = [
+  'psmithul@gmail.com',
+  'kulkarni.karthik@thinkify.io'
+]
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -18,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     // Format the email content
     const emailData = {
-      to: 'psmithul@gmail.com',
+      to: EMAIL_RECIPIENTS,
       subject: `🚀 New Hiring Request from ${company_name} - Thinkify Labs`,
       timestamp: new Date().toISOString(),
       data: {
@@ -48,18 +54,21 @@ export async function POST(request: NextRequest) {
         // Verify connection
         await transporter.verify()
 
-        await transporter.sendMail({
-          from: `"Thinkify Labs" <${process.env.GMAIL_USER}>`,
-          to: 'psmithul@gmail.com',
-          subject: emailData.subject,
-          html: generateEmailHTML(emailData.data),
-          text: generateEmailText(emailData.data)
-        })
+        // Send to each recipient
+        for (const recipient of EMAIL_RECIPIENTS) {
+          await transporter.sendMail({
+            from: `"Thinkify Labs" <${process.env.GMAIL_USER}>`,
+            to: recipient,
+            subject: emailData.subject,
+            html: generateEmailHTML(emailData.data),
+            text: generateEmailText(emailData.data)
+          })
+        }
 
         emailSent = true
         emailMethod = 'Gmail SMTP'
         if (isDevelopment) {
-          console.log('✅ Email sent successfully via Gmail SMTP')
+          console.log('✅ Email sent successfully via Gmail SMTP to both recipients')
         }
       } catch (error) {
         if (isDevelopment) {
@@ -87,18 +96,21 @@ export async function POST(request: NextRequest) {
 
         await transporter.verify()
 
-        await transporter.sendMail({
-          from: `"Thinkify Labs" <${process.env.OUTLOOK_USER}>`,
-          to: 'psmithul@gmail.com',
-          subject: emailData.subject,
-          html: generateEmailHTML(emailData.data),
-          text: generateEmailText(emailData.data)
-        })
+        // Send to each recipient
+        for (const recipient of EMAIL_RECIPIENTS) {
+          await transporter.sendMail({
+            from: `"Thinkify Labs" <${process.env.OUTLOOK_USER}>`,
+            to: recipient,
+            subject: emailData.subject,
+            html: generateEmailHTML(emailData.data),
+            text: generateEmailText(emailData.data)
+          })
+        }
 
         emailSent = true
         emailMethod = 'Outlook SMTP'
         if (isDevelopment) {
-          console.log('✅ Email sent successfully via Outlook SMTP')
+          console.log('✅ Email sent successfully via Outlook SMTP to both recipients')
         }
       } catch (error) {
         if (isDevelopment) {
@@ -120,18 +132,21 @@ export async function POST(request: NextRequest) {
 
         await transporter.verify()
 
-        await transporter.sendMail({
-          from: `"Thinkify Labs" <${process.env.YAHOO_USER}>`,
-          to: 'psmithul@gmail.com',
-          subject: emailData.subject,
-          html: generateEmailHTML(emailData.data),
-          text: generateEmailText(emailData.data)
-        })
+        // Send to each recipient
+        for (const recipient of EMAIL_RECIPIENTS) {
+          await transporter.sendMail({
+            from: `"Thinkify Labs" <${process.env.YAHOO_USER}>`,
+            to: recipient,
+            subject: emailData.subject,
+            html: generateEmailHTML(emailData.data),
+            text: generateEmailText(emailData.data)
+          })
+        }
 
         emailSent = true
         emailMethod = 'Yahoo SMTP'
         if (isDevelopment) {
-          console.log('✅ Email sent successfully via Yahoo SMTP')
+          console.log('✅ Email sent successfully via Yahoo SMTP to both recipients')
         }
       } catch (error) {
         if (isDevelopment) {
@@ -155,18 +170,21 @@ export async function POST(request: NextRequest) {
 
         await transporter.verify()
 
-        await transporter.sendMail({
-          from: `"Thinkify Labs" <${process.env.SMTP_USER}>`,
-          to: 'psmithul@gmail.com',
-          subject: emailData.subject,
-          html: generateEmailHTML(emailData.data),
-          text: generateEmailText(emailData.data)
-        })
+        // Send to each recipient
+        for (const recipient of EMAIL_RECIPIENTS) {
+          await transporter.sendMail({
+            from: `"Thinkify Labs" <${process.env.SMTP_USER}>`,
+            to: recipient,
+            subject: emailData.subject,
+            html: generateEmailHTML(emailData.data),
+            text: generateEmailText(emailData.data)
+          })
+        }
 
         emailSent = true
         emailMethod = 'Custom SMTP'
         if (isDevelopment) {
-          console.log('✅ Email sent successfully via Custom SMTP')
+          console.log('✅ Email sent successfully via Custom SMTP to both recipients')
         }
       } catch (error) {
         if (isDevelopment) {
@@ -183,14 +201,17 @@ export async function POST(request: NextRequest) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(emailData),
+          body: JSON.stringify({
+            ...emailData,
+            recipients: EMAIL_RECIPIENTS
+          }),
         })
 
         if (response.ok) {
           emailSent = true
           emailMethod = 'Webhook'
           if (isDevelopment) {
-            console.log('✅ Data sent to webhook successfully')
+            console.log('✅ Data sent to webhook successfully for both recipients')
           }
         }
       } catch (error) {
@@ -215,7 +236,8 @@ export async function POST(request: NextRequest) {
             scale: scale,
             remote: remote,
             roles: roles.join(', '),
-            message: `Company: ${company_name}\nScaling: ${scale}\nRemote: ${remote}\nRoles: ${roles.join(', ')}\nEmail: ${email}\nPhone: ${phone}`
+            recipients: EMAIL_RECIPIENTS.join(', '),
+            message: `Company: ${company_name}\nScaling: ${scale}\nRemote: ${remote}\nRoles: ${roles.join(', ')}\nEmail: ${email}\nPhone: ${phone}\n\nPlease also send to: ${EMAIL_RECIPIENTS.join(' and ')}`
           }),
         })
 
@@ -235,7 +257,9 @@ export async function POST(request: NextRequest) {
     
     // Final fallback: Log to console (development only)
     if (!emailSent && isDevelopment) {
-      console.log('📧 New Form Submission (Development Mode):', JSON.stringify(emailData, null, 2))
+      console.log('📧 New Form Submission (Development Mode):')
+      console.log('Recipients:', EMAIL_RECIPIENTS.join(', '))
+      console.log('Data:', JSON.stringify(emailData, null, 2))
       console.log('')
       console.log('💡 Email not sent - Configure one of these FREE options:')
       console.log('')
@@ -262,6 +286,7 @@ export async function POST(request: NextRequest) {
         message: 'Request processed successfully',
         method: emailMethod,
         success: true,
+        recipients: EMAIL_RECIPIENTS,
         data: emailData
       },
       { status: 200 }
@@ -276,6 +301,7 @@ export async function POST(request: NextRequest) {
       try {
         const body = await request.clone().json()
         console.log('📧 Form data (saved due to error):', JSON.stringify(body, null, 2))
+        console.log('📧 Intended recipients:', EMAIL_RECIPIENTS.join(', '))
       } catch (logError) {
         console.error('Could not log form data:', logError)
       }

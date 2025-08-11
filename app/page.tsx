@@ -361,7 +361,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 3 && (
+            {currentStep === 2 && (
               <motion.div
                 key="scale"
                 initial={{ opacity: 0, x: 20 }}
@@ -400,7 +400,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 4 && (
+            {currentStep === 3 && (
               <motion.div
                 key="remote"
                 initial={{ opacity: 0, x: 20 }}
@@ -439,7 +439,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 4 && (
               <motion.div
                 key="roles"
                 initial={{ opacity: 0, x: 20 }}
@@ -520,7 +520,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 6 && (
+            {currentStep === 5 && (
               <motion.div
                 key="email"
                 initial={{ opacity: 0, x: 20 }}
@@ -562,7 +562,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 7 && (
+            {currentStep === 6 && (
               <motion.div
                 key="phone"
                 initial={{ opacity: 0, x: 20 }}
@@ -604,7 +604,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 8 && (
+            {currentStep === 7 && (
               <motion.div
                 key="company"
                 initial={{ opacity: 0, x: 20 }}
@@ -656,7 +656,7 @@ export default function HomePage() {
               </motion.div>
             )}
 
-            {currentStep === 9 && (
+            {currentStep === 8 && (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.8 }}
