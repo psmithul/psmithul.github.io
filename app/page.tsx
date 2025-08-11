@@ -180,8 +180,8 @@ export default function HomePage() {
       // Redirect to developer form
       window.location.href = '/developer'
     } else {
-      // Continue with company form
-      setTimeout(() => nextStep(), 500)
+      // Continue with company form - remove delay for immediate response
+      nextStep()
     }
   }
 
@@ -253,8 +253,8 @@ export default function HomePage() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
-        <div className="w-full max-w-2xl">
+      <div className="relative z-10 min-h-screen flex items-center justify-center p-4 sm:p-6">
+        <div className="w-full max-w-2xl mx-auto">
           <AnimatePresence mode="wait">
             {currentStep === 0 && (
               <motion.div
@@ -273,10 +273,10 @@ export default function HomePage() {
                   🚀
                 </motion.div>
                 
-                <h1 className="text-5xl font-bold text-gradient mb-4">
+                <h1 className="text-4xl sm:text-5xl font-bold text-gradient mb-4">
                   Thinkify Labs
                 </h1>
-                <p className="text-xl text-gray-600 mb-12 leading-relaxed">
+                <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 leading-relaxed px-4">
                   Are you looking to hire or looking for opportunities?
                 </p>
 
@@ -285,18 +285,32 @@ export default function HomePage() {
                     onClick={() => handleUserTypeSelect('company')}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl ${
+                    disabled={userType !== null}
+                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl relative overflow-hidden ${
                       userType === 'company'
-                        ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-glow'
-                        : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
+                        ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-lg shadow-primary-200'
+                        : userType === null
+                        ? 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg cursor-pointer'
+                        : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
                     }`}
                   >
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="text-4xl">🏢</div>
-                      <div className="text-left">
-                        <div className="font-bold">I&apos;m a Company</div>
-                        <div className="text-sm text-gray-500 font-normal">Looking to hire tech talent</div>
+                    <div className="flex items-center gap-6 w-full">
+                      <div className="text-5xl flex-shrink-0">🏢</div>
+                      <div className="text-left flex-1">
+                        <div className="font-bold text-xl mb-1">I&apos;m a Company</div>
+                        <div className="text-sm text-gray-500 font-normal leading-relaxed">Looking to hire tech talent</div>
                       </div>
+                      {userType === 'company' && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="text-primary-500"
+                        >
+                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </motion.div>
+                      )}
                     </div>
                   </motion.button>
 
@@ -304,18 +318,32 @@ export default function HomePage() {
                     onClick={() => handleUserTypeSelect('developer')}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl ${
+                    disabled={userType !== null}
+                    className={`p-8 rounded-2xl border-2 transition-all font-medium text-xl relative overflow-hidden ${
                       userType === 'developer'
-                        ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-glow'
-                        : 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg'
+                        ? 'border-primary-500 bg-gradient-to-r from-primary-50 to-orange-50 text-primary-700 shadow-lg shadow-primary-200'
+                        : userType === null
+                        ? 'border-gray-200 bg-white hover:border-primary-300 text-gray-700 hover:shadow-lg cursor-pointer'
+                        : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'
                     }`}
                   >
-                    <div className="flex items-center justify-center gap-4">
-                      <div className="text-4xl">👨‍💻</div>
-                      <div className="text-left">
-                        <div className="font-bold">I&apos;m a Developer</div>
-                        <div className="text-sm text-gray-500 font-normal">Looking for opportunities</div>
+                    <div className="flex items-center gap-6 w-full">
+                      <div className="text-5xl flex-shrink-0">👨‍💻</div>
+                      <div className="text-left flex-1">
+                        <div className="font-bold text-xl mb-1">I&apos;m a Developer</div>
+                        <div className="text-sm text-gray-500 font-normal leading-relaxed">Looking for opportunities</div>
                       </div>
+                      {userType === 'developer' && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="text-primary-500"
+                        >
+                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </motion.div>
+                      )}
                     </div>
                   </motion.button>
                 </div>
