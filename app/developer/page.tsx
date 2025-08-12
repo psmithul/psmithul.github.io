@@ -107,7 +107,7 @@ const steps = [
   {
     id: 'success',
     title: 'Thank you! 🎉',
-    subtitle: "We&apos;ll find you amazing opportunities",
+    subtitle: "We'll find you amazing opportunities",
     emoji: '✨'
   }
 ]
@@ -287,7 +287,7 @@ export default function DeveloperPage() {
                     Developer Profile
                   </h1>
                   <p className="text-xl text-gray-600 mb-12 leading-relaxed">
-                    Let&apos;s find you amazing opportunities.<br />
+                    Let's find you amazing opportunities.<br />
                     This will only take 2 minutes.
                   </p>
 
@@ -297,7 +297,7 @@ export default function DeveloperPage() {
                     whileTap={{ scale: 0.95 }}
                     className="btn-primary"
                   >
-                    <span>Let&apos;s get started</span>
+                    <span>Let's get started</span>
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </motion.button>
                 </motion.div>
@@ -665,7 +665,7 @@ export default function DeveloperPage() {
                     <div className="text-left space-y-2 text-gray-600">
                       <div className="flex items-center">
                         <CheckCircle className="w-4 h-4 text-blue-500 mr-2" />
-                        <span>We&apos;ll review your profile</span>
+                        <span>We'll review your profile</span>
                       </div>
                       <div className="flex items-center">
                         <CheckCircle className="w-4 h-4 text-indigo-500 mr-2" />

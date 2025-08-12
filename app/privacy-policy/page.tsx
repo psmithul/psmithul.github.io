@@ -268,7 +268,7 @@ export default function PrivacyPolicyPage() {
             
             <div className="space-y-6">
               <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Children&apos;s Privacy</h3>
+                <h3 className="font-semibold text-gray-800 mb-2">Children's Privacy</h3>
                 <p className="text-gray-600 leading-relaxed">
                   Our services are for individuals aged 18 or older. We do not knowingly collect data from minors. 
                   If you believe we have collected information from a minor, please contact us immediately.
@@ -278,7 +278,7 @@ export default function PrivacyPolicyPage() {
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">Changes to This Policy</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  We may update this policy for new features or legal requirements. We&apos;ll post revisions here 
+                  We may update this policy for new features or legal requirements. We'll post revisions here 
                   and notify you via email if changes are significant.
                 </p>
               </div>

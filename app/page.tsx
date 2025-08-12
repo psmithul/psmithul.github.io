@@ -59,7 +59,7 @@ const steps = [
   {
     id: 'welcome',
     title: 'Welcome to Thinkify Labs! 👋',
-    subtitle: "Let&apos;s find the perfect tech talent for your team",
+    subtitle: "Let's find the perfect tech talent for your team",
     emoji: '🚀'
   },
   {
@@ -82,26 +82,26 @@ const steps = [
   },
   {
     id: 'email',
-    title: "What&apos;s your email address?",
-    subtitle: "We&apos;ll send you perfect matches and updates",
+    title: "What's your email address?",
+    subtitle: "We'll send you perfect matches and updates",
     emoji: '📧'
   },
   {
     id: 'phone',
-    title: "What&apos;s your phone number?",
+    title: "What's your phone number?",
     subtitle: 'For quick updates and follow-ups',
     emoji: '📞'
   },
   {
     id: 'company',
-    title: "What&apos;s your company name?",
+    title: "What's your company name?",
     subtitle: 'Required - helps us personalize our service',
     emoji: '🏢'
   },
   {
     id: 'success',
     title: 'Thank you! 🎉',
-    subtitle: "We&apos;ll get back to you with amazing candidates",
+    subtitle: "We'll get back to you with amazing candidates",
     emoji: '✨'
   }
 ]
@@ -366,8 +366,8 @@ export default function HomePage() {
                 </h1>
                 <p className="text-xl text-gray-600 mb-12 leading-relaxed">
                   {userType === 'company' 
-                    ? "Let&apos;s find the perfect tech talent for your team. This will only take 2 minutes."
-                    : "Let&apos;s find you amazing opportunities. This will only take 2 minutes."
+                    ? "Let's find the perfect tech talent for your team. This will only take 2 minutes."
+                    : "Let's find you amazing opportunities. This will only take 2 minutes."
                   }
                 </p>
 
@@ -377,7 +377,7 @@ export default function HomePage() {
                   whileTap={{ scale: 0.95 }}
                   className="btn-primary"
                 >
-                                      <span>Let&apos;s get started</span>
+                                      <span>Let's get started</span>
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </motion.button>
               </motion.div>
@@ -552,10 +552,10 @@ export default function HomePage() {
               >
                 <div className="text-6xl mb-6">📧</div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  What&apos;s your email address?
+                  What's your email address?
                 </h2>
                 <p className="text-gray-600 mb-12 text-lg">
-                  We&apos;ll send you perfect matches and updates
+                  We'll send you perfect matches and updates
                 </p>
 
                 <div className="max-w-md mx-auto">
@@ -594,7 +594,7 @@ export default function HomePage() {
               >
                 <div className="text-6xl mb-6">📞</div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  What&apos;s your phone number?
+                  What's your phone number?
                 </h2>
                 <p className="text-gray-600 mb-12 text-lg">
                   For quick updates and follow-ups
@@ -636,7 +636,7 @@ export default function HomePage() {
               >
                 <div className="text-6xl mb-6">🏢</div>
                 <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  What&apos;s your company name?
+                  What's your company name?
                 </h2>
                 <p className="text-gray-600 mb-12 text-lg">
                   Required - helps us personalize our service
@@ -706,7 +706,7 @@ export default function HomePage() {
                   <div className="text-left space-y-2 text-gray-600">
                     <div className="flex items-center">
                       <CheckCircle className="w-4 h-4 text-primary-500 mr-2" />
-                      <span>We&apos;ll review your requirements</span>
+                      <span>We'll review your requirements</span>
                     </div>
                     <div className="flex items-center">
                       <CheckCircle className="w-4 h-4 text-accent-500 mr-2" />
